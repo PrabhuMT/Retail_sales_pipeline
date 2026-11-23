@@ -43,5 +43,5 @@ scripts/load.py
 scripts/partition_test.py
 
 # SQL files
-sql/scripts/run_analytics.py
+scripts/run_analytics.py
 scripts/extract.py
