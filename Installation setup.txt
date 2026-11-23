@@ -1,17 +1,263 @@
-install python
-python --version
-Python 3.12.7
+# Installation Setup – Retail Sales Data Engineering Pipeline
 
-install java
-java -version
-openjdk version "17.0.20.1" 2026-08-18
-OpenJDK Runtime Environment Temurin-17.0.20.1+1 (build 17.0.20.1+1)
-OpenJDK 64-Bit Server VM Temurin-17.0.20.1+1 (build 17.0.20.1+1, mixed mode, sharing)
+## 1. Prerequisites and Download Links
 
+Download and install the following software.
+
+|------------------------|-------------------------------|--------------------------------------------------------|
+| Software               | Project Version               | Official Download                                      |
+|------------------------|-------------------------------|--------------------------------------------------------|
+| Python                 | 3.12.7                        | https://www.python.org/downloads/release/python-3127/  |
+| Java JDK               | 17                            | https://adoptium.net/temurin/releases/?version=17      |
+| Apache Spark / PySpark | 3.5.9                         | https://spark.apache.org/downloads.html                |
+| Apache Hadoop          | Compatible Hadoop 3.x release | https://hadoop.apache.org/releases                     |
+| Apache Hive            | Compatible Hive release       | https://hive.apache.org/downloads.html                 |
+| Git                    | Latest stable                 | https://git-scm.com/install/windows                    |
+| Visual Studio Code     | Latest stable                 | https://code.visualstudio.com/download                 |
+|------------------------|-------------------------------|--------------------------------------------------------|
+
+**Python libraries and dependencies:**
+
+These are installed using `requirements.txt`, rather than downloading each package separately.
+
+- PySpark
+- Pandas
+- OpenPyXL
+- Matplotlib
+- ReportLab
+
+Package repository: https://pypi.org/
+
+## 2. Dataset Download
+
+**Dataset:** UCI Online Retail Dataset
+
+Download link:
+https://archive.ics.uci.edu/dataset/352/online+retail
+
+Dataset details:
+- Original records: 541,909
+- File format: Excel (.xlsx)
+- Data period: December 2010 – December 2011
+- Source: UCI Machine Learning Repository
+
+Download the Excel file and place it in:
+
+```text
+data/raw/online_retail.xlsx
+```
+
+## 3. Python Environment Setup
+
+Create a virtual environment from the project root:
+
+```bash
 python -m venv .venv
-python -m pip install --upgrade pip
-pip install pyspark==3.5.9
-pip install matplotlib reportlab
+```
 
+Activate the environment using Git Bash:
+
+```bash
+source .venv/Scripts/activate
+```
+
+Upgrade pip:
+
+```bash
+python -m pip install --upgrade pip
+```
+
+Install project dependencies:
+
+```bash
+pip install -r requirements.txt
+```
+
+## 4. Java Configuration
+
+Install Java JDK 17.
+
+Configure the following Windows environment variable:
+
+```text
+JAVA_HOME=C:\Program Files\Eclipse Adoptium\jdk-17
+```
+
+Add Java to the system PATH:
+
+```text
+%JAVA_HOME%\bin
+```
+
+Verify the installation:
+
+```bash
+java -version
+```
+
+## 5. Hadoop Configuration (Windows)
+
+Download a compatible Hadoop release and extract it.
+
+Example installation directory:
+
+```text
+E:\hadoop
+```
+
+Ensure the following Windows native utility files are available:
+
+```text
+E:\hadoop\bin\winutils.exe
+E:\hadoop\bin\hadoop.dll
+```
+
+Configure the environment variable:
+
+```text
+HADOOP_HOME=E:\hadoop
+```
+
+Add the following to the system PATH:
+
+```text
+%HADOOP_HOME%\bin
+```
+
+**Note:** Windows native Hadoop utilities may require a compatible Windows build. Verify that `winutils.exe` and `hadoop.dll` match your Hadoop version and architecture.
+
+## 6. PySpark Configuration
+
+The project uses PySpark 3.5.9.
+
+Configure the environment variables in Git Bash:
+
+```bash
 export HADOOP_HOME="E:/hadoop"
-export PATH="$HADOOP_HOME/bin:$PATH"
+export JAVA_TOOL_OPTIONS="-Djava.library.path=E:/hadoop/bin"
+```
+
+Before creating the SparkSession in Python, configure the Python executable:
+
+```python
+import os
+import sys
+
+os.environ["PYSPARK_PYTHON"] = sys.executable
+os.environ["PYSPARK_DRIVER_PYTHON"] = sys.executable
+```
+
+## 7. Hive Configuration
+
+Configure Hive with a compatible Hadoop installation.
+
+For this project, Spark uses Hive support through:
+
+```python
+SparkSession.builder \
+    .appName("RetailSalesAnalytics") \
+    .enableHiveSupport() \
+    .getOrCreate()
+```
+
+The Hive metastore stores database and table metadata.
+
+Ensure that the configured Hive warehouse and metastore locations are accessible.
+
+**Note:** Spark can use its embedded Hive metastore in local mode. A separately installed Hive service is only necessary when your setup requires an external Hive installation or metastore.
+
+## 8. Project Dependencies
+
+The project uses the following Python libraries:
+
+| Library | Purpose |
+|---|---|
+| PySpark | Distributed data processing |
+| Pandas | Data preparation and validation |
+| OpenPyXL | Excel file processing |
+| Matplotlib | Data visualization |
+| ReportLab | Automated PDF report generation |
+
+Install all dependencies:
+
+```bash
+pip install -r requirements.txt
+```
+
+## 9. Project Directory Structure
+
+```text
+Retail_sales_pipeline/
+│
+├── config/
+│
+├── data/
+│   ├── raw/
+│   ├── processed/
+│   └── warehouse/
+│
+├── reports/
+│
+├── scripts/
+│
+├── requirements.txt
+├── README.md
+└── .gitignore
+```
+
+## 10. Verify the Installation
+
+Check Python:
+
+```bash
+python --version
+```
+
+Check Java:
+
+```bash
+java -version
+```
+
+Check Hadoop:
+
+```bash
+hadoop version
+```
+
+Check PySpark:
+
+```bash
+pyspark --version
+```
+
+Check installed Python packages:
+
+```bash
+pip list
+```
+
+## 11. Run the Project
+
+After installing the prerequisites and configuring the environment variables:
+
+1. Open the project in Visual Studio Code.
+2. Open the Git Bash terminal.
+3. Activate the Python virtual environment.
+4. Configure the Hadoop and Java environment variables.
+5. Execute the project scripts in the order provided in `README.md`.
+
+The analytics script automatically generates the PDF report:
+
+```text
+reports/Retail_Sales_Analytics_Report.pdf
+```
+
+---
+
+**Important Notes**
+
+- Use compatible versions of Java, Hadoop, Spark and Hive.
+- Configure environment variables according to your local installation paths.
+- Do not commit virtual environments, raw datasets or warehouse data to GitHub.
+- Refer to the official documentation for version-specific installation instructions.
