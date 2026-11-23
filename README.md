@@ -373,7 +373,7 @@ python scripts/run_real_analytics.py
 
 python scripts/create_partitioned_sales.py
 
-python scripts/register_partitioned_sales.py
+python scripts/register_partition_sales.py
 
 python scripts/compare_partition_performance.py
 ```
