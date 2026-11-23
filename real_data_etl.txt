@@ -1,0 +1,13 @@
+export HADOOP_HOME="E:/hadoop"
+export PATH="/e/hadoop/bin:$PATH"
+export JAVA_TOOL_OPTIONS="-Djava.library.path=E:/hadoop/bin"
+
+python scripts/prepare_real_data.py
+python scripts/inspect_real_data.py
+python scripts/quality_check.py
+python scripts/ingest_to_parquet.py
+python scripts/create_hive_tables.py
+python scripts/run_real_analytics.py
+python scripts/create_partitioned_sales.py
+python scripts/register_partitioned_sales.py
+python scripts/compare_partition_performance.py

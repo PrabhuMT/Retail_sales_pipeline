@@ -1,0 +1,9 @@
+export HADOOP_HOME="E:/hadoop"
+export PATH="/e/hadoop/bin:$PATH"
+export JAVA_TOOL_OPTIONS="-Djava.library.path=E:/hadoop/bin"
+
+python scripts/extract.py
+python scripts/transform.py
+python scripts/load.py
+python scripts/run_analytics.py
+python scripts/validation.py

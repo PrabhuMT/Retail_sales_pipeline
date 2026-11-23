@@ -1,0 +1,43 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Spark and Hadoop
+spark-warehouse/
+metastore_db/
+derby.log/
+
+# Data files
+data/raw/
+data/processed/
+data/warehouse/
+
+# Generated reports
+reports/charts/
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Test files
+test_spark.py
+
+# Hive warehouse data
+warehouse/retail_db.db/sales/
+
+# Unwanted scripts
+scripts/transform.py
+scripts/validation.py
+scripts/update_hive_locations.py
+scripts/diagnose_partition_sales.py
+scripts/load.py
+scripts/partition_test.py
+
+# SQL files
+sql/

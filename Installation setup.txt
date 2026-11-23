@@ -1,0 +1,17 @@
+install python
+python --version
+Python 3.12.7
+
+install java
+java -version
+openjdk version "17.0.20.1" 2026-08-18
+OpenJDK Runtime Environment Temurin-17.0.20.1+1 (build 17.0.20.1+1)
+OpenJDK 64-Bit Server VM Temurin-17.0.20.1+1 (build 17.0.20.1+1, mixed mode, sharing)
+
+python -m venv .venv
+python -m pip install --upgrade pip
+pip install pyspark==3.5.9
+pip install matplotlib reportlab
+
+export HADOOP_HOME="E:/hadoop"
+export PATH="$HADOOP_HOME/bin:$PATH"
