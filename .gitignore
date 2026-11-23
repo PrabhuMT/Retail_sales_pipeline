@@ -45,3 +45,5 @@ scripts/partition_test.py
 # SQL files
 scripts/run_analytics.py
 scripts/extract.py
+scripts/extract.py
+scripts/fix_partition_location.py
